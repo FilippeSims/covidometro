@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Roca One';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('./assets/fonts/RocaOne-Rg.woff2') format('woff2'),
+       url('./assets/fonts/RocaOne-Rg.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Filson Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('./assets/fonts/FilsonPro-Regular.woff2') format('woff2'),
+       url('./assets/fonts/FilsonPro-Regular.woff') format('woff');
+}
+
+body{
+  background: rgb(253,247,247);
+  background: linear-gradient(45deg, rgba(253,247,247,1) 0%, rgba(255,255,255,1) 100%) fixed;
+}
