@@ -16,7 +16,7 @@
   const caching = ref(false)
   const countryCases = ref(false)
   const buttonToGoBack = ref(false)
-  const loading = ref(false)
+  const loading = ref(true)
 
   const verify = computed(() => {
     return store.getSummaryCountries
@@ -68,7 +68,7 @@
   watch(verify, (value, valueNow) => {
     if(value){
       caching.value = false;
-      loading.value = true;
+      loading.value = false;
     } else {
       caching.value = true;
     }
@@ -77,33 +77,22 @@
 <template>
   <div>
     <NavBar />
-    <Header />
-    <div
-      class="
-        m-auto
-        w-[90%]
-        lg:w-[60%]
-        bg-white
-        shadow
-        -mt-[103px]
-        py-5
-        rounded
-        text-center
-        relative
-        "
-        v-if="caching"
-    >
-      <p>API em caching, tente novamente mais tarde.</p>
-    </div>
-    <Filter v-if="!caching" :countries="store.getSummaryCountries"  @clickCountry="clickCountry($event)"/>
-    <Options v-if="!caching">
+    <Header v-if="!loading" />
+    <Filter v-if="!loading" :countries="store.getSummaryCountries"  @clickCountry="clickCountry($event)"/>
+    <Options v-if="!loading">
       <button class="p-1 border active:bg-[#ed6160] hover:border-[#ed6160] rounded bg-white" @click.prevent="sortClick" v-if="countryCases === false">
         <img src="./assets/img/sort.png" class="h-5 float-left" />
       </button>
       <button class="p-1 border active:bg-[#ed6160] hover:border-[#ed6160] rounded bg-white" @click.prevent="toGoBack" v-if="buttonToGoBack === true">Voltar</button>
     </Options>
-    <Card v-if="!countryCases && !caching && loading" :countries="sort" @clickCountry="clickCountry($event)" delay="200"/>
-    <CardStatus v-if="countryCases && !caching" :countryStatus="store.getCountryStatus" />
+    <Card v-if="!countryCases && !loading" :countries="sort" @clickCountry="clickCountry($event)" delay="200"/>
+    <CardStatus v-if="countryCases" :countryStatus="store.getCountryStatus" />
+    <div
+      class="mt-5 text-center flex justify-center"
+        v-if="loading"
+    >
+      <img src="./assets/img/loading.png" class="h-[32px] animate-spin" />
+    </div>
   </div>
 </template>
 
